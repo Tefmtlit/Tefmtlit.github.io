@@ -184,16 +184,13 @@
       align-items:flex-start;
     }
     .badge{
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      display:grid;
-      place-items:center;
-      color: white;
-      font-weight: 800;
-      background: var(--accent);
-      box-shadow: 0 12px 18px rgba(16,110,190,.22);
-      flex: 0 0 auto;
+  font-size: 2rem;          /* Bigger emoji */
+  background: none;         /* Remove blue box */
+  box-shadow: none;
+  padding: 0;
+  width: auto;
+  height: auto;
+}
     }
     .sum-title{
       margin:0;
@@ -204,31 +201,25 @@
       color: var(--muted);
       font-size: .92rem;
     }
-    .chev{
-      margin-top: 4px;
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      display:grid;
-      place-items:center;
-      color: var(--muted);
-      background: #ffffff;
-      flex: 0 0 auto;
-      transition: transform .18s ease;
-    }
-    details[open] .chev{ transform: rotate(180deg); }
+   .chev{
+  font-size: 1.4rem;
+  background: none;
+  border: none;
+  transform: none;
+  margin-top: 4px;
+}
+details[open] .chev{
+  transform: none;
+}
 
     .content{
       padding: 0 14px 16px;
     }
 
     /* Content styling */
-    .grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 14px;
-      align-items:start;
+ .grid{
+  display: block;    /* Stack items vertically */
+}
     }
     .section{
       border: 1px solid var(--border);
@@ -311,6 +302,53 @@
       .grid{ grid-template-columns: 1fr; }
       .meta{ justify-content: flex-start; }
     }
+/* Dark mode override */
+    body{
+  background: #000;
+  color: #fff;
+}
+
+.card{
+  background: #1a1a1a;
+  border-color: #333;
+}
+
+.section{
+  background: #111;
+  border-color: #333;
+}
+
+.callout{
+  background: #222;
+  border-left-color: #2196f3;
+}
+
+.callout.note{
+  background: #220022;
+}
+
+.caption{
+  background: #111;
+  border-color: #333;
+}
+
+summary{
+  background: #000;
+}
+
+details{
+  background: #000;
+  border-color: #333;
+}
+
+hr{
+  border-color: #333;
+}
+
+a{
+  color: #4da6ff;
+}
+    
   </style>
 </head>
 
@@ -336,7 +374,7 @@
 
 
         <!-- Accordion section 1 -->
-        <details id="join" open>
+        <details id="join">
           <summary>
             <div class="sum-left">
               <div class="badge" aria-hidden="true">📅</div>
@@ -345,7 +383,7 @@
                 <p class="sum-desc">Join a booked meeting via Room Calendar or Meeting ID.</p>
               </div>
             </div>
-            <div class="chev" aria-hidden="true">⌄</div>
+            <div class="chev" aria-hidden="true">🔽</div>
           </summary>
 
           <div class="content">
@@ -408,7 +446,7 @@
                 <p class="sum-desc">Start an impromptu Zoom meeting and invite attendees.</p>
               </div>
             </div>
-            <div class="chev" aria-hidden="true">⌄</div>
+            <div class="chev" aria-hidden="true">🔽</div>
           </summary>
 
           <div class="content">
@@ -459,7 +497,7 @@
                 <p class="sum-desc">Call one or more internal Zoom contacts directly from the Contacts tab.</p>
               </div>
             </div>
-            <div class="chev" aria-hidden="true">⌄</div>
+            <div class="chev" aria-hidden="true">🔽</div>
           </summary>
 
           <div class="content">
@@ -508,7 +546,7 @@
                 <p class="sum-desc">Share content using the room controller and your laptop (Zoom app or share.zoom.us).</p>
               </div>
             </div>
-            <div class="chev" aria-hidden="true">⌄</div>
+            <div class="chev" aria-hidden="true">🔽</div>
           </summary>
 
           <div class="content">
@@ -554,5 +592,13 @@
      
     </div>
   </main>
+  <script>
+document.querySelectorAll("details").forEach(det => {
+  det.addEventListener("toggle", () => {
+    const icon = det.querySelector(".chev");
+    icon.textContent = det.open ? "🔼" : "🔽";
+  });
+});
+</script>
 </body>
 </html>
