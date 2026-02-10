@@ -7,608 +7,78 @@
   <meta name="description" content="Quick instructions for joining meetings, creating meetings, direct calling, and screen sharing." />
 
   <style>
+    /* ============ Base / tokens ============ */
     :root{
-      --bg: #f5f6f8;
-      --card: #ffffff;
-      --text: #1f2328;
-      --muted: #5b6675;
-      --border: #e1e4e8;
-      --shadow: 0 8px 24px rgba(0,0,0,.08);
-      --accent: #106ebe; /* Microsoft-ish blue */
-      --accent-2: #005a9e;
-      --success: #107c10;
-      --warning: #b4009e;
+      --max: 980px;
       --radius: 16px;
       --radius-sm: 12px;
-      --max: 980px;
+      --border: #333;
+      --text: #ffffff;
+      --text-dim: #e8e8e8;
+      --text-muted: #cfcfcf;
+      --bg: #000000;
+      --card: #1a1a1a;
+      --panel: #111111;
+      --brand: #8ab4ff;   /* link / accent */
+      --info:  #2196f3;   /* tip border */
+      --note:  #a558d6;   /* note hue */
+      --shadow: 0 8px 24px rgba(0,0,0,.35);
       --font: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
     }
 
-    *{ box-sizing: border-box; }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      font-family: var(--font);
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.5;
+      font-family:var(--font);
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.5;
     }
 
-    /* Header */
+    a{ color:var(--brand); text-decoration:none; }
+    a:hover{ color:#b3ccff; }
+
+    .wrap{ max-width:var(--max); margin:0 auto; padding:18px 16px; }
+
+    /* ============ Header ============ */
     header{
-      background: linear-gradient(180deg, #ffffff, #f8f9fb);
-      border-bottom: 1px solid var(--border);
-    }
-    .wrap{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px 16px;
+      background: #000;
+      border-bottom:1px solid var(--border);
     }
     .brand{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .brand-left{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width: 260px;
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
     }
     .logo{
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: radial-gradient(circle at top left, #2b88d8, #005a9e);
-      box-shadow: 0 10px 18px rgba(16,110,190,.22);
-      display:grid;
-      place-items:center;
-      color:white;
-      font-weight:700;
-      letter-spacing:.5px;
-      user-select:none;
+      width:44px; height:44px; border-radius:12px;
+      display:grid; place-items:center;
+      background:#0a0a0a; color:#fff; font-weight:700; user-select:none;
+      box-shadow: 0 6px 18px rgba(0,0,0,.45);
     }
-    h1{
-      margin:0;
-      font-size: 1.18rem;
-      letter-spacing: .2px;
-    }
-    .subtitle{
-      margin:2px 0 0;
-      color: var(--muted);
-      font-size: .95rem;
-    }
-    .meta{
-      display:flex;
-      gap:10px;
-      flex-wrap: wrap;
-      align-items:center;
-      justify-content: flex-end;
-    }
-    .pill{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      padding: 8px 10px;
-      border: 1px solid var(--border);
-      background: white;
-      border-radius: 999px;
-      font-size: .9rem;
-      color: var(--muted);
-      box-shadow: 0 2px 10px rgba(0,0,0,.04);
-    }
-    .dot{
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--success);
-    }
+    h1{ margin:0; font-size:1.18rem; }
+    .subtitle{ margin:4px 0 0; color:var(--text-muted); font-size:.95rem; }
 
-    /* Main layout */
-    main{ padding: 18px 0 40px; }
+    /* ============ Card container for all sections ============ */
     .card{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-    .card + .card{ margin-top: 14px; }
-
-    /* Quick links */
-    .quick{
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      padding: 14px;
-      border-bottom: 1px solid var(--border);
-      background: #ffffff;
-    }
-    .quick a{
-      text-decoration:none;
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 10px 12px;
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 10px;
-      background: #fbfcfe;
-      transition: transform .08s ease, border-color .15s ease, box-shadow .15s ease;
-    }
-    .quick a:hover{
-      transform: translateY(-1px);
-      border-color: #c9d3df;
-      box-shadow: 0 10px 20px rgba(0,0,0,.06);
-    }
-    .qicon{
-      width: 28px;
-      height: 28px;
-      border-radius: 10px;
-      display:grid;
-      place-items:center;
-      background: rgba(16,110,190,.12);
-      color: var(--accent-2);
-      font-weight:700;
-    }
-    .qtext{
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-      min-width: 0;
-    }
-    .qtext strong{ font-size: .95rem; }
-    .qtext span{ font-size: .85rem; color: var(--muted); }
-
-    /* Accordion */
-    details{
-      border-top: 1px solid var(--border);
-      background: #ffffff;
-    }
-    details:first-of-type{ border-top: none; }
-    summary{
-      list-style: none;
-      cursor: pointer;
-      padding: 16px 14px;
-      display:flex;
-      align-items:flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    summary::-webkit-details-marker{ display:none; }
-    .sum-left{
-      display:flex;
-      gap: 12px;
-      align-items:flex-start;
-    }
-    .badge{
-  font-size: 2rem;          /* Bigger emoji */
-  background: none;         /* Remove blue box */
-  box-shadow: none;
-  padding: 0;
-  width: auto;
-  height: auto;
-}
-    }
-    .sum-title{
-      margin:0;
-      font-size: 1.05rem;
-    }
-    .sum-desc{
-      margin: 3px 0 0;
-      color: var(--muted);
-      font-size: .92rem;
-    }
-   .chev{
-  font-size: 1.4rem;
-  background: none;
-  border: none;
-  transform: none;
-  margin-top: 4px;
-}
-details[open] .chev{
-  transform: none;
-}
-
-    .content{
-      padding: 0 14px 16px;
-    }
-
-    /* Content styling */
- .grid{
-  display: block;    /* Stack items vertically */
-}
-    }
-    .section{
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: #fbfcfe;
-      padding: 12px;
-    }
-    .section h3{
-      margin: 0 0 8px;
-      font-size: 0.98rem;
-    }
-    .section p{
-      margin: 0 0 10px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-    ol{
-      margin: 0;
-      padding-left: 18px;
-    }
-    li{ margin: 6px 0; }
-    .callout{
-      border-left: 4px solid var(--accent);
-      background: rgba(16,110,190,.06);
-      padding: 10px 12px;
-      border-radius: 12px;
-      color: var(--muted);
-      font-size: .93rem;
-      margin-top: 10px;
-    }
-    .callout strong{ color: var(--text); }
-    .note{
-      border-left-color: var(--warning);
-      background: rgba(180,0,158,.06);
-    }
-
-    /* Screenshot placeholder */
-    .shot{
-      border: 1px dashed #c9d3df;
-      background: #ffffff;
-      border-radius: var(--radius-sm);
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
       overflow:hidden;
-    }
-    .shot .ph{
-      display:grid;
-      place-items:center;
-      padding: 18px 10px;
-      color: var(--muted);
-      text-align:center;
-      font-size: .9rem;
-      min-height: 150px;
-      background:
-        linear-gradient(135deg, rgba(16,110,190,.05), rgba(0,0,0,0) 45%),
-        #ffffff;
-    }
-    .shot img{
-      width:100%;
-      height:auto;
-      display:block;
-    }
-    .caption{
-      padding: 10px 12px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: .88rem;
-      background: #fbfcfe;
+      margin-top:16px;
     }
 
-    /* Footer */
-    footer{
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: .88rem;
-      text-align:center;
+    /* ============ Accordion ============ */
+    details{
+      border-top:1px solid var(--border);
+      background:#000; /* blends with dark */
     }
+    details:first-of-type{ border-top:none; }
 
-    /* Mobile */
-    @media (max-width: 860px){
-      .quick{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .grid{ grid-template-columns: 1fr; }
-      .meta{ justify-content: flex-start; }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:16px 14px;
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      background:#000;
     }
-/* Dark mode override */
-    body{
-  background: #000;
-  color: #fff;
-}
-
-.card{
-  background: #1a1a1a;
-  border-color: #333;
-}
-
-.section{
-  background: #111;
-  border-color: #333;
-}
-
-.callout{
-  background: #222;
-  border-left-color: #FF8C00;
-  color: #e6e6e6;        /* brighter text */
-}
-
-.callout strong{
-  color: #ffffff;        /* brightest for emphasis */
-}
-
-.callout.note{
-  background: #330033;
-  color: #f0c0ff;        /* light magenta text for readability */
-}
-
-.callout.note strong{
-  color: #ffffff;
-}
-
-.caption{
-  background: #111;
-  border-color: #333;
-}
-
-summary{
-  background: #000;
-}
-
-details{
-  background: #000;
-  border-color: #333;
-}
-
-hr{
-  border-color: #333;
-}
-
-a{
-  color: #4da6ff;
-}
-    
-  </style>
-</head>
-
-<body>
-  <header>
-    <div class="wrap">
-      <div class="brand">
-        <div class="brand-left">
-          <div class="logo" aria-hidden="true">🎚️</div>
-          <div>
-            <h1>Conference Room Quick Guide</h1>
-            <p class="subtitle">Expand the sections below for instructions on how to connect using one of the following methods.</p>
-          </div>
-        </div>
-
-        
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <div class="wrap">
-
-
-        <!-- Accordion section 1 -->
-        <details id="join">
-          <summary>
-            <div class="sum-left">
-              <div class="badge" aria-hidden="true">📅</div>
-              <div>
-                <p class="sum-title"><strong>Joining a Booked Meeting</strong></p>
-                <p class="sum-desc">Join a booked meeting via Room Calendar or Meeting ID.</p>
-              </div>
-            </div>
-            <div class="chev" aria-hidden="true">🔽</div>
-          </summary>
-
-          <div class="content">
-            <div class="grid">
-              <div class="section">
-                
-                <p>Meetings scheduled using the room calendar appear as <strong>Meeting Cards (A)</strong>.</p>
-                <ol>
-                  <li>Locate your meeting in the <strong>Meeting Cards</strong> area.</li>
-                  <li>Tap the meeting card to expand it. <strong>(1)</strong> </li>
-                  <li>Select <strong>Join (2)</strong> to enter the meeting.</li>
-                </ol>
-
-                <div class="callout">
-                  <strong>Tip:</strong> If the meeting was booked correctly, this method avoids re-entering details like Meeting ID and passcode.
-                </div>
-
-                 <aside class="shot" aria-label="Screenshot of Room Controller">
-                <!-- Meeting Card Screenshot -->
-                <img src="images/FIG-A1.png" alt="Join via Meeting card (1-2) or join by dialing in (3 or 4)">
-                   
-                <div class="caption">Room Controller with <strong>Meeting Cards</strong>.</div>
-              </aside>
-
-                <h3 style="margin-top:14px;">Manually join an existing meeting</h3>
-                <p>If the meeting card is not visible, join manually using the meeting details.</p>
-                <ol>
-                  <li>Press <strong>Join (3)</strong> for Zoom or Microsoft <strong>Teams (4)</strong> for Teams.</li>
-                  <li>Select <strong>Zoom</strong> or <strong>Microsoft Teams</strong>.</li>
-                  <li></li>
-                  <li>Enter the <strong>Meeting ID</strong> in the pop-up window, then <strong>Join</strong>.</li>
-                  <li>When prompted, enter the <strong>passcode</strong>.</li>
-                </ol>
-
-                <div class="callout note">
-                  <strong>Note:</strong> In some meetings, the organizer may need to manually admit the room into the meeting.
-                </div>
-              </div>
-
-
-              
-              
-              <aside class="shot" aria-label="Screenshot placeholder for joining a meeting">
-                <!-- Manually Join Screenshot -->
-               <img src="images/FIG-A2.png" alt="Input Meeting ID to join">
-                
-                <div class="caption">Manually enter <strong>Meeting ID</strong> here.</div>
-              </aside>
-            </div>
-          </div>
-        </details>
-
-        <!-- Accordion section 2 -->
-        <details id="new">
-          <summary>
-            <div class="sum-left">
-              <div class="badge" aria-hidden="true">👥</div>
-              <div>
-                <p class="sum-title"><strong>Creating a New Meeting</strong></p>
-                <p class="sum-desc">Start an impromptu Zoom meeting and invite attendees.</p>
-              </div>
-            </div>
-            <div class="chev" aria-hidden="true">🔽</div>
-          </summary>
-
-          <div class="content">
-            <div class="grid">
-              <div class="section">
-                <h3>Start a new (impromptu) meeting</h3>
-                <ol>
-                  <li>Press <strong>New Meeting (1)</strong>.</li>
-                  <li>A Zoom meeting starts immediately.</li>
-                </ol>
-
-                <h3 style="margin-top:14px;">Invite attendees</h3>
-                <ol>
-                  <li>Press <strong>Invite</strong>.</li>
-                  <li>Choose one of the following:</li>
-                  <li>
-                    <strong>Internal contacts:</strong> Search and select colleagues.<br/>
-                    <strong>Email tab:</strong> Invite external participants by email.
-                  </li>
-                </ol>
-
-                <div class="callout">
-                  <strong>Where to find Meeting ID & passcode:</strong> Tap the meeting title at the top of the screen to display the Meeting ID and passcode.
-                </div>
-              </div>
-
-              <aside class="shot" aria-label="Screenshot placeholder for creating a new meeting">
-                <div class="ph">
-                  <div>
-                    <strong>Screenshot placeholder</strong><br />
-                    New Meeting + Invite flow<br />
-                    <span style="font-size:.85rem;">(Add: /images/new-meeting.png)</span>
-                  </div>
-                </div>
-                <div class="caption">Example: <strong>New Meeting</strong> button and <strong>Invite</strong> options.</div>
-              </aside>
-            </div>
-          </div>
-        </details>
-
-        <!-- Accordion section 3 -->
-        <details id="call">
-          <summary>
-            <div class="sum-left">
-              <div class="badge" aria-hidden="true">☎️</div>
-              <div>
-                <p class="sum-title"><strong>Direct Calling (Internal Zoom contacts only)</strong></p>
-                <p class="sum-desc">Call one or more internal Zoom contacts directly from the Contacts tab.</p>
-              </div>
-            </div>
-            <div class="chev" aria-hidden="true">🔽</div>
-          </summary>
-
-          <div class="content">
-            <div class="grid">
-              <div class="section">
-                <h3>Call a single person</h3>
-                <ol>
-                  <li>Select the <strong>Contacts</strong> tab.</li>
-                  <li>Search for the person you want to call.</li>
-                  <li>Press <strong>Meet</strong> to start the call.</li>
-                </ol>
-
-                <h3 style="margin-top:14px;">Call multiple people</h3>
-                <ol>
-                  <li>Press <strong>Select</strong> to enable multi-select.</li>
-                  <li>Choose all desired contacts.</li>
-                  <li>Press <strong>Start</strong> to begin the call.</li>
-                </ol>
-
-                <div class="callout">
-                  <strong>Reminder:</strong> Direct calling works for <strong>internal Zoom contacts</strong> only.
-                </div>
-              </div>
-
-              <aside class="shot" aria-label="Screenshot placeholder for direct calling">
-                <div class="ph">
-                  <div>
-                    <strong>Screenshot placeholder</strong><br />
-                    Contacts tab + Select / Start<br />
-                    <span style="font-size:.85rem;">(Add: /images/direct-call.png)</span>
-                  </div>
-                </div>
-                <div class="caption">Example: Contacts search and multi-select calling.</div>
-              </aside>
-            </div>
-          </div>
-        </details>
-
-        <!-- Accordion section 4 -->
-        <details id="share">
-          <summary>
-            <div class="sum-left">
-              <div class="badge" aria-hidden="true">💻</div>
-              <div>
-                <p class="sum-title"><strong>Screen Sharing</strong></p>
-                <p class="sum-desc">Share content using the room controller and your laptop (Zoom app or share.zoom.us).</p>
-              </div>
-            </div>
-            <div class="chev" aria-hidden="true">🔽</div>
-          </summary>
-
-          <div class="content">
-            <div class="grid">
-              <div class="section">
-                <h3>Step 1: Start sharing from the room controller</h3>
-                <ol>
-                  <li>Press <strong>Share Content</strong> on the room controller.</li>
-                  <li>Note the <strong>Sharing Key</strong> displayed on the room screen.<strong>(A)</strong></li>
-                </ol>
-
-                <h3 style="margin-top:14px;">Step 2: Share from your computer</h3>
-
-                <p><strong>Option A — Zoom desktop app</strong></p>
-                <ol>
-                  <li>Open the Zoom app on your computer.</li>
-                  <li>Click <strong>Share Screen</strong>.</li>
-                  <li>Enter the <strong>Sharing Key</strong> from the room display.<strong>(A)</strong></li>
-                </ol>
-
-                <p style="margin-top:10px;"><strong>Option B — Web browser</strong></p>
-                <ol>
-                  <li>Open a browser and go to <strong>share.zoom.us</strong></li>
-                  <li>Enter the <strong>Meeting ID</strong> and <strong>passcode</strong> shown on the room display <strong>(A)</strong>.</li>
-                </ol>
-
-              
-              </div>
-
-              <aside class="shot" aria-label="Screenshare feature on Room Controller.">
-                <img src="images/FIG-D1.jpg" alt="Scheensharing information as seen on Room Controller.">
-                <div class="caption">Location of <strong>Share Content</strong> button on Room Controller.</div>
-                
-                <img src="images/FIG-D2.jpg" alt="Scheensharing information as seen on Room Controller.">
-                <div class="caption">Sharing information displayed after pressing <strong>Share Content</strong>.</div>
-              </aside>
-            </div>
-          </div>
-        </details>
-
-      </section>
-
-     
-    </div>
-  </main>
-  <script>
-document.querySelectorAll("details").forEach(det => {
-  det.addEventListener("toggle", () => {
-    const icon = det.querySelector(".chev");
-    icon.textContent = det.open ? "🔼" : "🔽";
-  });
-});
-</script>
-</body>
-</html>
