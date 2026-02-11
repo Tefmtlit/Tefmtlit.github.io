@@ -7,7 +7,7 @@
   <meta name="description" content="Quick instructions for joining meetings, creating meetings, direct calling, and screen sharing." />
 
   <style>
-    /* ============ Base / tokens ============ */
+    /* ============ Core Theme ============ */
     :root{
       --max: 980px;
       --radius: 16px;
@@ -15,390 +15,414 @@
       --border: #333;
       --text: #ffffff;
       --text-dim: #e8e8e8;
-      --text-muted: #cfcfcf;
+      --text-muted: #bdbdbd;
       --bg: #000000;
       --card: #1a1a1a;
       --panel: #111111;
-      --brand: #8ab4ff;   /* link / accent */
-      --info:  #2196f3;   /* tip border */
-      --note:  #a558d6;   /* note hue */
-      --shadow: 0 8px 24px rgba(0,0,0,.35);
-      --font: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      --link: #8ab4ff;
+      --tip: #FF8C00;
+      --tip-bg: #2a1c00;
+      --note: #FF8C00;
+      --note-bg: #341b00;
+      --shadow: 0 8px 24px rgba(0,0,0,.40);
+      --font: "Segoe UI", system-ui, Arial, sans-serif;
     }
 
     *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+
     body{
       margin:0;
-      font-family:var(--font);
       background:var(--bg);
       color:var(--text);
+      font-family:var(--font);
       line-height:1.5;
     }
 
-    a{ color:var(--brand); text-decoration:none; }
-    a:hover{ color:#b3ccff; }
+    a{ color:var(--link); text-decoration:none; }
+    a:hover{ color:#c7dbff; }
 
-    .wrap{ max-width:var(--max); margin:0 auto; padding:18px 16px; }
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:20px 16px;
+    }
 
     /* ============ Header ============ */
     header{
-      background: #000;
       border-bottom:1px solid var(--border);
+      padding-bottom:12px;
+      margin-bottom:12px;
     }
-    .brand{
-      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
-    }
-    .logo{
-      width:44px; height:44px; border-radius:12px;
-      display:grid; place-items:center;
-      background:#0a0a0a; color:#fff; font-weight:700; user-select:none;
-      box-shadow: 0 6px 18px rgba(0,0,0,.45);
-    }
-    h1{ margin:0; font-size:1.18rem; }
-    .subtitle{ margin:4px 0 0; color:var(--text-muted); font-size:.95rem; }
 
-    /* ============ Card container for all sections ============ */
+    h1{
+      margin:0;
+      font-size:1.7rem;     /* Increased per your request */
+      letter-spacing:0.2px;
+    }
+
+    .subtitle{
+      margin:6px 0 0;
+      color:var(--text-muted);
+      font-size:1rem;
+    }
+
+    /* ============ Card Container ============ */
     .card{
       background:var(--card);
       border:1px solid var(--border);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       overflow:hidden;
-      margin-top:16px;
     }
 
     /* ============ Accordion ============ */
     details{
       border-top:1px solid var(--border);
-      background:#000; /* blends with dark */
+      background:#000;
     }
     details:first-of-type{ border-top:none; }
 
     summary{
-      list-style:none;
       cursor:pointer;
-      padding:16px 14px;
-      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      padding:18px 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      list-style:none;
       background:#000;
     }
     summary::-webkit-details-marker{ display:none; }
 
-    .sum-left{ display:flex; gap:12px; align-items:flex-start; }
-    .badge{          /* emoji only (no blue square) */
-      font-size:2rem; line-height:1; padding:0; margin-top:2px;
+    .sum-left{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
     }
-    .sum-title{ margin:0; font-size:1.05rem; }
-    .sum-desc { margin:3px 0 0; color:var(--text-dim); font-size:.92rem; }
 
-    .chev{ font-size:1.4rem; background:none; border:none; margin-top:4px; }
+    .badge{
+      font-size:2rem;
+      margin-top:2px;
+      line-height:1;
+    }
 
-    .content{ padding:0 14px 16px; }
+    .sum-title{ margin:0; font-size:1.1rem; }
+    .sum-desc{ margin:2px 0 0; color:var(--text-dim); font-size:.95rem; }
 
-    /* ============ Content blocks ============ */
+    .chev{
+      font-size:1.4rem;
+      margin-top:4px;
+    }
+
+    .content{
+      padding:0 16px 20px;
+    }
+
+    /* ============ Section Blocks ============ */
     .section{
       background:var(--panel);
       border:1px solid var(--border);
       border-radius:var(--radius-sm);
-      padding:12px;
+      padding:16px;
     }
-    .section h3{ margin:0 0 8px; font-size:1rem; color:var(--text); }
-    .section p{ margin:0 0 10px; color:var(--text-dim); font-size:.97rem; }
-    ol{ margin:0; padding-left:18px; }
+
+    .section h3{
+      margin-top:0;
+      color:var(--text);
+    }
+    
+    .section p{
+      margin:0 0 10px;
+      color:var(--text-dim);
+    }
+    
+    .section strong{
+      color:var(--text);
+    }
+
+    ol{ margin:0; padding-left:20px; }
     li{ margin:6px 0; color:var(--text-dim); }
-    .section strong{ color:var(--text); }
 
-    /* Tip / Note callouts */
+    /* ============ Callouts ============ */
     .callout{
-      border-left:4px solid var(--info);
-      background:#222;
-      padding:10px 12px;
+      border-left:4px solid var(--tip);
+      background:var(--tip-bg);
+      color:#f8f3e8;
+      padding:12px;
       border-radius:12px;
-      color:#e6e6e6;
-      font-size:.95rem;
-      margin-top:12px;
-    }
-    .callout strong{ color:#fff; }
-    .callout.note{
-      border-left-color: var(--note);
-      background:#230a2e;
-      color:#f0c0ff;
+      margin-top:14px;
     }
 
-    /* Screenshots (inline, smaller, spaced) */
+    .callout strong{ color:#fff; }
+
+    .callout.note{
+      border-left-color:var(--note);
+      background:var(--note-bg);
+      color:#ffe1c0;
+    }
+
+    /* ============ Screenshots ============ */
     .shot{
-      margin-top:18px;                 /* space from text/callout above */
-      border:1px dashed #3a3a3a;
-      background:#121212;
+      margin-top:20px;
+      border:1px dashed var(--border);
+      background:#101010;
       border-radius:var(--radius-sm);
       padding:10px;
-    }
-    .shot img{
-      display:block;
-      width:100%;
-      max-width:720px;                 /* adjust to 560/640 if you want smaller */
-      margin:0 auto;
-      border-radius:10px;
-    }
-    .shot img + .caption{ margin-top:8px; }
-    .shot .caption{
-      color:var(--text-muted);
-      font-size:.88rem;
-      padding:6px 2px 0;
-      border-top:0;
-      background:transparent;
       text-align:center;
     }
 
-    /* Footer (currently unused, but keep for future) */
-    footer{ margin-top:16px; color:var(--text-muted); font-size:.88rem; text-align:center; }
+    .shot img{
+      width:100%;
+      max-width:720px;      /* consistent width */
+      height:auto;          /* tall screenshots preserved */
+      display:block;
+      margin:0 auto;
+      border-radius:10px;
+    }
 
-    /* Mobile niceties */
-    @media (max-width: 480px){
+    .caption{
+      margin-top:8px;
+      color:var(--text-muted);
+      font-size:.88rem;
+    }
+
+    /* Mobile */
+    @media(max-width:480px){
       .shot img{ max-width:100%; }
     }
-    
-    /* Force uniform screenshot height across the site */
-.shot img {
-  display: block;
-  margin: 0 auto;
-  width: auto;
-  max-width: 100%;
-  height: 420px;            /* ← sets consistent height */
-  object-fit: contain;      /* keeps proportions without cropping */
-}
   </style>
-  
-  
 </head>
 
 <body>
-  <header>
-    <div class="wrap">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">🎚️</div>
-        <div>
-          <h1>Conference Room Quick Guide</h1>
-          <p class="subtitle">Expand the relevant section for detailed instructions.</p>
+<header>
+  <div class="wrap">
+    <h1>Conference Room Quick Guide</h1>
+    <p class="subtitle">Expand the relevant section for detailed instructions.</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="card">
+
+
+      <!-- SECTION 1 — JOINING A BOOKED MEETING -->
+      <details id="join">
+        <summary>
+          <div class="sum-left">
+            <div class="badge">📅</div>
+            <div>
+              <p class="sum-title"><strong>Joining a Booked Meeting</strong></p>
+              <p class="sum-desc">Use the meeting card on the room controller or join manually.</p>
+            </div>
+          </div>
+          <div class="chev">🔽</div>
+        </summary>
+
+        <div class="content">
+          <div class="section">
+
+            <p>Meetings scheduled using the room calendar appear as <strong>Meeting Cards (A)</strong>.</p>
+            <ol>
+              <li>Find your meeting in <strong>Meeting Cards</strong>.</li>
+              <li>Tap the meeting card to expand it <strong>(1)</strong>.</li>
+              <li>Select <strong>Join (2)</strong> to enter the meeting.</li>
+            </ol>
+
+            <div class="callout">
+              <strong>Tip:</strong> If the meeting was booked correctly, this avoids typing Meeting ID and passcode.
+            </div>
+
+            <aside class="shot">
+              <img src="images/FIG-A1.png" alt="Room controller with Meeting Cards" />
+              <div class="caption">Room controller showing <strong>Meeting Cards</strong>.</div>
+            </aside>
+
+            <h3 style="margin-top:20px;">Manually join an existing meeting</h3>
+            <p>If no meeting card appears:</p>
+
+            <ol>
+              <li>Press <strong>Join (3)</strong> for Zoom or <strong>Teams (4)</strong>.</li>
+              <li>Select either <strong>Zoom</strong> or <strong>Microsoft Teams</strong>.</li>
+              <li>Enter the <strong>Meeting ID</strong>.</li>
+              <li>When prompted, enter the <strong>passcode</strong>.</li>
+            </ol>
+
+            <div class="callout note">
+              <strong>Note:</strong> The meeting organizer may need to admit the room.
+            </div>
+
+            <aside class="shot">
+              <img src="images/FIG-A2.png" alt="Manual Joining" />
+              <div class="caption">Enter the <strong>Meeting ID</strong> to join manually.</div>
+            </aside>
+
+          </div>
         </div>
-      </div>
-    </div>
-  </header>
+      </details>
 
-  <main>
-    <div class="wrap">
-      <section class="card">
 
-        <!-- 1) Joining a booked meeting -->
-        <details id="join">
-          <summary>
-            <div class="sum-left">
-              <div class="badge" aria-hidden="true">📅</div>
-              <div>
-                <p class="sum-title"><strong>Joining a Booked Meeting</strong></p>
-                <p class="sum-desc">Use the meeting card on the room controller or join by Meeting ID.</p>
-              </div>
-            </div>
-            <div class="chev" aria-hidden="true">🔽</div>
-          </summary>
 
-          <div class="content">
-            <div class="section">
-              <p>Meetings scheduled using the room calendar appear as <strong>Meeting Cards (A)</strong>.</p>
-              <ol>
-                <li>Find your meeting in <strong>Meeting Cards</strong>.</li>
-                <li>Tap the meeting card to expand it <strong>(1)</strong>.</li>
-                <li>Select <strong>Join (2)</strong> to enter the meeting.</li>
-              </ol>
-
-              <div class="callout">
-                <strong>Tip:</strong> If the meeting was booked correctly, this avoids re-entering details like Meeting ID and passcode.
-              </div>
-
-              <aside class="shot" aria-label="Join via Meeting Card">
-                <img src="images/FIG-A1.png" alt="Join via Meeting Card (1–2) or dial in (3–4)" />
-                <div class="caption">Room controller showing <strong>Meeting Cards</strong>.</div>
-              </aside>
-
-              <h3 style="margin-top:16px;">Manually join an existing meeting</h3>
-              <p>If no meeting card is visible, join manually:</p>
-              <ol>
-                <li>Press <strong>Join (3)</strong> for Zoom or <strong>Microsoft Teams (4)</strong> for Teams.</li>
-                <li>Select <strong>Zoom</strong> or <strong>Microsoft Teams</strong> as appropriate.</li>
-                <li>Enter the <strong>Meeting ID</strong>, then press <strong>Join</strong>.</li>
-                <li>When prompted, enter the <strong>passcode</strong>.</li>
-              </ol>
-
-              <div class="callout note">
-                <strong>Note:</strong> The meeting organizer may need to manually admit the room.
-              </div>
-
-              <aside class="shot" aria-label="Manual join">
-                <img src="images/FIG-A2.png" alt="Enter Meeting ID to join" />
-                <div class="caption">Enter the <strong>Meeting ID</strong> to join manually.</div>
-              </aside>
+      <!-- SECTION 2 — CREATING A NEW MEETING -->
+      <details id="new">
+        <summary>
+          <div class="sum-left">
+            <div class="badge">👥</div>
+            <div>
+              <p class="sum-title"><strong>Creating a New Meeting</strong></p>
+              <p class="sum-desc">Start an instant Zoom meeting and invite attendees.</p>
             </div>
           </div>
-        </details>
+          <div class="chev">🔽</div>
+        </summary>
 
-        <!-- 2) Creating a new meeting -->
-        <details id="new">
-          <summary>
-            <div class="sum-left">
-              <div class="badge" aria-hidden="true">👥</div>
-              <div>
-                <p class="sum-title"><strong>Creating a New Meeting</strong></p>
-                <p class="sum-desc">Start an impromptu Zoom meeting and invite attendees.</p>
-              </div>
-            </div>
-            <div class="chev" aria-hidden="true">🔽</div>
-          </summary>
+        <div class="content">
+          <div class="section">
 
-          <div class="content">
-            <div class="section">
-              <h3>Start a new (impromptu) meeting</h3>
-              <ol>
-                <li>Press <strong>New Meeting (1)</strong>.</li>
-                <li>A Zoom meeting starts immediately.</li>
-              </ol>
-              
-          <aside class="shot" aria-label="New meeting">
-                <img src="images/FIG-B1.png" alt="Start New Meeting" />
-                <div class="caption"><strong>New Meeting (1)</strong> on room controller screen.</div>
-              </aside>
+            <h3>Start a new meeting</h3>
+            <ol>
+              <li>Press <strong>New Meeting (1)</strong>.</li>
+              <li>A Zoom meeting starts immediately.</li>
+            </ol>
 
-              
-              <h3 style="margin-top:16px;">Invite attendees</h3>
-              <ol>
-                <li>Press <strong>Invite (1)</strong>.</li>
-                <li>Choose one:</li>
-                <li>
-                  <strong>Internal contacts:</strong> Search and select colleagues in the left pane.<strong>(2)</strong><br>
-                  <strong>Email tab:</strong> Invite external participants by email <strong>(3)</strong>.
-                </li>
-              </ol>
+            <aside class="shot">
+              <img src="images/FIG-B1.png" alt="New Meeting button on controller" />
+              <div class="caption"><strong>New Meeting (1)</strong> on the controller.</div>
+            </aside>
 
-              <div class="callout">
-                <strong>To quickly see Meeting ID &amp; passcode:</strong> Tap the meeting title at the top of the screen.
-              </div>
+            <h3 style="margin-top:20px;">Invite attendees</h3>
+            <ol>
+              <li>Press <strong>Invite</strong>.</li>
+              <li>Choose:</li>
+              <li>
+                <strong>Internal contacts:</strong> search & select colleagues.<br>
+                <strong>Email tab:</strong> invite external participants.
+              </li>
+            </ol>
 
-              <aside class="shot" aria-label="New meeting placeholder">
-                <img src="images/FIG-B2.png" alt="New Meeting and invite flow" />
-                <div class="caption"><strong>Invite</strong> option in meeting controls.</div>
-              </aside>
+            <div class="callout"><strong>Tip:</strong> Tap the meeting title to view the Meeting ID & passcode.</div>
+
+            <aside class="shot">
+              <img src="images/FIG-B2.png" alt="Invite flow" />
+              <div class="caption"><strong>Invite</strong> menu on the meeting screen.</div>
+            </aside>
+
+          </div>
+        </div>
+      </details>
+
+
+
+      <!-- SECTION 3 — DIRECT CALLING -->
+      <details id="call">
+        <summary>
+          <div class="sum-left">
+            <div class="badge">☎️</div>
+            <div>
+              <p class="sum-title"><strong>Direct Calling</strong></p>
+              <p class="sum-desc">Call internal Zoom contacts from the controller.</p>
             </div>
           </div>
-        </details>
+          <div class="chev">🔽</div>
+        </summary>
 
-        <!-- 3) Direct calling -->
-        <details id="call">
-          <summary>
-            <div class="sum-left">
-              <div class="badge" aria-hidden="true">☎️</div>
-              <div>
-                <p class="sum-title"><strong>Direct Calling (Internal Zoom contacts only)</strong></p>
-                <p class="sum-desc">Call one or more internal Zoom contacts from the Contacts tab.</p>
-              </div>
+        <div class="content">
+          <div class="section">
+            <h3>Call a single person</h3>
+
+            <div class="callout">
+              <strong>Reminder:</strong> Works only with <strong>internal</strong> Zoom contacts.
             </div>
-            <div class="chev" aria-hidden="true">🔽</div>
-          </summary>
 
-          <div class="content">
-            <div class="section">
-              <h3>Call a single person</h3>
-               <div class="callout">
-                <strong>Reminder:</strong> Direct calling works with <strong>internal Zoom contacts</strong> only.
-              </div>
-              <ol>
-                <li>Open the <strong>Contacts (1)</strong> tab.</li>
-                <li><strong>Search (2)</strong> for the person you want to call.</li>
-                <li>Press <strong>Meet (3)</strong> to start the call.</li>
-              </ol>
+            <ol>
+              <li>Open <strong>Contacts (1)</strong>.</li>
+              <li><strong>Search (2)</strong> for a person.</li>
+              <li>Press <strong>Meet (3)</strong>.</li>
+            </ol>
 
-                <aside class="shot" aria-label="Direct calling">
-                <img src="images/FIG-C1.png" alt="Contacts tab then select contact" />
-                <div class="caption">Contacts search and calling someone.</div>
-              </aside>
+            <aside class="shot">
+              <img src="images/FIG-C1.png" alt="Single direct call" />
+              <div class="caption">Searching & starting a direct call.</div>
+            </aside>
 
-              <h3 style="margin-top:16px;">Call multiple people</h3>
-              <ol>
-                <li>Press <strong>Select (1)</strong> to enable multi-select.</li>
-                <li>Choose all desired contacts.</li>
-                <li>Press <strong>Start (2)</strong> to begin the call.</li>
-              </ol>
+            <h3 style="margin-top:20px;">Call multiple people</h3>
 
-              <aside class="shot" aria-label="Direct calling">
-                <img src="images/FIG-C2.png" alt="Select mulltiple contacts." />
-                <div class="caption">Contacts search and multi-select calling.</div>
-              </aside>
+            <ol>
+              <li>Press <strong>Select (1)</strong>.</li>
+              <li>Choose participants.</li>
+              <li>Press <strong>Start (2)</strong>.</li>
+            </ol>
+
+            <aside class="shot">
+              <img src="images/FIG-C2.png" alt="Multi-select calling" />
+              <div class="caption">Selecting and calling multiple contacts.</div>
+            </aside>
+
+          </div>
+        </div>
+      </details>
+
+
+
+      <!-- SECTION 4 — SCREEN SHARING -->
+      <details id="share">
+        <summary>
+          <div class="sum-left">
+            <div class="badge">💻</div>
+            <div>
+              <p class="sum-title"><strong>Screen Sharing</strong></p>
+              <p class="sum-desc">Share your screen to the TV.</p>
             </div>
           </div>
-        </details>
+          <div class="chev">🔽</div>
+        </summary>
 
-        <!-- 4) Screen sharing -->
-        <details id="share">
-          <summary>
-            <div class="sum-left">
-              <div class="badge" aria-hidden="true">💻</div>
-              <div>
-                <p class="sum-title"><strong>Screen Sharing</strong></p>
-                <p class="sum-desc">Share your screen to the TV.</p>
-              </div>
-            </div>
-            <div class="chev" aria-hidden="true">🔽</div>
-          </summary>
+        <div class="content">
+          <div class="section">
 
-          <div class="content">
-            <div class="section">
-              <h3>Step 1 — Start sharing from the room controller</h3>
-                <p>Press <strong>Share Content (1)</strong> on the room controller.</p>
-            
+            <h3>Step 1 — Start sharing from the controller</h3>
+            <p>Press <strong>Share Content</strong> on the controller.</p>
 
-              
+            <aside class="shot">
+              <img src="images/FIG-D1.jpg" alt="Share Content button" />
+              <div class="caption">Location of <strong>Share Content</strong>.</div>
+            </aside>
 
-  <aside class="shot" aria-label="Screen sharing on room controller">
-                <img src="images/FIG-D1.jpg" alt="Screen-sharing controls on the room controller" />
-                <div class="caption">Location of <strong>Share Content</strong> on the controller.</div>
-  </aside>
+            <h3 style="margin-top:20px;">Step 2 — Share from your computer</h3>
 
+            <p><strong>Option A — Zoom App</strong></p>
+            <ol>
+              <li>Open Zoom.</li>
+              <li>Click <strong>Share Screen</strong>.</li>
+              <li>Enter the <strong>Sharing Key</strong> shown on the room display.</li>
+            </ol>
 
-              
-              <h3 style="margin-top:16px;">Step 2 — Share from your computer</h3>
+            <p style="margin-top:10px;"><strong>Option B — Web Browser</strong></p>
+            <ol>
+              <li>Go to <strong>share.zoom.us</strong>.</li>
+              <li>Enter the <strong>Meeting ID</strong> and <strong>passcode</strong>.</li>
+            </ol>
 
-              <p><strong>Option A — Zoom desktop app</strong></p>
-              <ol>
-                <li>Open Zoom on your computer.</li>
-                <li>Click <strong>Share Screen</strong>.</li>
-                <li>Enter the <strong>Sharing Key (A)</strong> from the room display.</li>
-              </ol>
+            <aside class="shot">
+              <img src="images/FIG-D2.jpg" alt="Sharing info display" />
+              <div class="caption">Sharing details shown on the room display.</div>
+            </aside>
 
-              <p style="margin-top:10px;"><strong>Option B — Web browser</strong></p>
-              <ol>
-                <li>Go to <strong>share.zoom.us</strong>.</li>
-                <li>Enter the <strong>Meeting ID</strong> and <strong>passcode</strong> shown on the room display <strong>(A)</strong>.</li>
-              </ol>
-
-            
-
-                <img src="images/FIG-D2.jpg" alt="Sharing information after pressing Share Content" />
-                <div class="caption">Details shown after pressing <strong>Share Content</strong>.</div>
-              </aside>
-            </div>
           </div>
-        </details>
+        </div>
+      </details>
 
-      </section>
-    </div>
-  </main>
+    </section>
+  </div>
+</main>
 
-  <script>
-    // Toggle 🔽 / 🔼 when a section opens/closes
-    document.querySelectorAll("details").forEach(det => {
-      det.addEventListener("toggle", () => {
-        const icon = det.querySelector(".chev");
-        if (icon) icon.textContent = det.open ? "🔼" : "🔽";
-      });
-    });
-  </script>
+<script>
+document.querySelectorAll("details").forEach(det => {
+  det.addEventListener("toggle", () => {
+    const icon = det.querySelector(".chev");
+    if(icon) icon.textContent = det.open ? "🔼" : "🔽";
+  });
+});
+</script>
+
 </body>
 </html>
