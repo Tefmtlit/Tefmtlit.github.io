@@ -157,7 +157,19 @@
     @media (max-width: 480px){
       .shot img{ max-width:100%; }
     }
+    
+    /* Force uniform screenshot height across the site */
+.shot img {
+  display: block;
+  margin: 0 auto;
+  width: auto;
+  max-width: 100%;
+  height: 420px;            /* ← sets consistent height */
+  object-fit: contain;      /* keeps proportions without cropping */
+}
   </style>
+  
+  
 </head>
 
 <body>
@@ -329,7 +341,7 @@
           <div class="content">
             <div class="section">
               <h3>Step 1 — Start sharing from the room controller</h3>
-                <li>Press <strong>Share Content</strong> on the room controller.</li>
+                <p>Press <strong>Share Content (1)</strong> on the room controller.</p>
             
 
               
