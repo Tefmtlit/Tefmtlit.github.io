@@ -23,11 +23,10 @@
       --text-muted: #cfcfcf;
 
       --brand: #8ab4ff;   /* link / accent */
-      --info:  #ff8c00;   /* tip left border (orange per your example) */
-      --note:  #a558d6;   /* note left border */
+      --info:  #ff8c00;   /* TIP / NOTE border (orange per your screenshots) */
 
-      --num:   #ff5252;   /* red for (1) (2) etc. */
-      --alpha: #4da6ff;   /* blue for (A) */
+      --num:   #ff5252;   /* red numbers (1) (2) */
+      --alpha: #4da6ff;   /* blue (A) */
 
       --shadow: 0 8px 24px rgba(0,0,0,.35);
       --font: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
@@ -48,20 +47,14 @@
 
     .wrap{ max-width:var(--max); margin:0 auto; padding:18px 16px; }
 
-    /* ============ Header ============ */
+    /* ============ Header (no emoji; larger title) ============ */
     header{
       background:#000;
       border-bottom:1px solid var(--border);
     }
     .brand{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
-    .logo{
-      width:44px; height:44px; border-radius:12px;
-      display:grid; place-items:center;
-      background:#0a0a0a; color:#fff; font-weight:700; user-select:none;
-      box-shadow: 0 6px 18px rgba(0,0,0,.45);
-    }
-    h1{ margin:0; font-size:1.18rem; }
-    .subtitle{ margin:4px 0 0; color:var(--text-muted); font-size:.95rem; }
+    h1{ margin:0; font-size:1.6rem; font-weight:700; }
+    .subtitle{ margin:6px 0 0; color:var(--text-muted); font-size:1rem; }
 
     /* ============ Sections container ============ */
     .card{
@@ -91,8 +84,8 @@
 
     .sum-left{ display:flex; gap:12px; align-items:flex-start; }
     .badge{ font-size:2rem; line-height:1; padding:0; margin-top:2px; }  /* emoji only */
-    .sum-title{ margin:0; font-size:1.05rem; }
-    .sum-desc { margin:3px 0 0; color:var(--text-dim); font-size:.92rem; }
+    .sum-title{ margin:0; font-size:1.08rem; }
+    .sum-desc { margin:3px 0 0; color:var(--text-dim); font-size:.95rem; }
     .chev{ font-size:1.4rem; background:none; border:none; margin-top:4px; }
 
     .content{ padding:0 14px 16px; }
@@ -107,24 +100,25 @@
     .section h3{ margin:0 0 8px; font-size:1rem; color:var(--text); }
     .section p{ margin:0 0 10px; color:var(--text-dim); font-size:.97rem; }
     ol{ margin:0; padding-left:18px; }
+    ul{ margin:6px 0 0 18px; }
     li{ margin:6px 0; color:var(--text-dim); }
     .section strong{ color:var(--text); }
 
-    /* Callouts */
+    /* Callouts (both orange; not purple) */
     .callout{
       border-left:4px solid var(--info);
-      background:#222;
+      background:#1f1707;              /* dark orange-tinted backdrop */
       padding:10px 12px;
       border-radius:12px;
-      color:#e6e6e6;
+      color:#f6e7c2;                    /* high-contrast text */
       font-size:.95rem;
       margin-top:12px;
     }
     .callout strong{ color:#fff; }
     .callout.note{
-      border-left-color: var(--note);
-      background:#230a2e;
-      color:#f0c0ff;
+      border-left-color: var(--info);   /* same orange style for Note */
+      background:#1f1707;
+      color:#f6e7c2;
     }
 
     /* Screenshots (inline, smaller, spaced) */
@@ -169,7 +163,6 @@
   <header>
     <div class="wrap">
       <div class="brand">
-        <div class="logo" aria-hidden="true">🎚️</div>
         <div>
           <h1>Conference Room Quick Guide</h1>
           <p class="subtitle">Expand a section for the steps you need.</p>
@@ -261,7 +254,7 @@
                 <li>Choose:</li>
               </ol>
               <ul>
-                <li><strong>Internal contacts:</strong> search and select colleagues.</li>
+                <li><strong>Internal contacts:</strong> search &amp; select colleagues.</li>
                 <li><strong>Email tab:</strong> invite external participants.</li>
               </ul>
 
@@ -270,7 +263,7 @@
               </div>
 
               <aside class="shot" aria-label="Invite flow">
-                <img src="images/new-meeting.png" alt="New Meeting and Invite options">
+                <img src="images/new-meeting.png" alt="Invite options: Internal contacts and Email tab">
                 <div class="caption"><strong>New Meeting</strong> and <strong>Invite</strong> options.</div>
               </aside>
             </div>
@@ -311,7 +304,7 @@
               </div>
 
               <aside class="shot" aria-label="Direct calling">
-                <img src="images/direct-call.png" alt="Contacts search and multi-select calling">
+                <img src="images/direct-call.png" alt="Contacts tab, Select and Start">
                 <div class="caption">Contacts search and multi‑select calling.</div>
               </aside>
             </div>
@@ -355,10 +348,10 @@
               </ol>
 
               <aside class="shot" aria-label="Screen sharing on room controller">
-                <img src="images/FIG-D1.jpg" alt="Location of Share Content on controller">
+                <img src="images/FIG-D1.jpg" alt="Share Content button on the controller">
                 <div class="caption">Location of <strong>Share Content</strong> on the controller.</div>
 
-                <img src="images/FIG-D2.jpg" alt="Sharing info after pressing Share Content">
+                <img src="images/FIG-D2.jpg" alt="Sharing key/info after pressing Share Content">
                 <div class="caption">Details shown after pressing <strong>Share Content</strong>.</div>
               </aside>
             </div>
@@ -382,9 +375,6 @@
      * Auto-highlight inline references:
      *  - (1) (2) ... (99) -> bold red
      *  - (A)               -> bold blue
-     *
-     * We wrap matches in <span class="numRef"> or <span class="alphaRef">.
-     * This runs on text nodes inside .card so your HTML stays clean.
      */
     (function highlightRefs(){
       const root = document.querySelector('.card');
@@ -392,35 +382,30 @@
 
       const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
         acceptNode: node => {
-          // skip empty/whitespace-only nodes
           if(!node.nodeValue || !node.nodeValue.match(/[()]/)) return NodeFilter.FILTER_REJECT;
-          // do not process inside <script> or <style>
           if(node.parentElement && /^(script|style)$/i.test(node.parentElement.tagName)) return NodeFilter.FILTER_REJECT;
           return NodeFilter.FILTER_ACCEPT;
         }
       });
 
-      const toProcess = [];
-      while (walker.nextNode()) toProcess.push(walker.currentNode);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
 
       const numRegex = /\((\d{1,2})\)/g;     // (1) .. (99)
       const alphaRegex = /\((A)\)/g;         // (A)
 
-      toProcess.forEach(textNode => {
-        let html = textNode.nodeValue;
+      nodes.forEach(tn => {
+        let html = tn.nodeValue;
+        if (!numRegex.test(html) && !alphaRegex.test(html)) return;
+        numRegex.lastIndex = 0; alphaRegex.lastIndex = 0;
 
-        if (numRegex.test(html) || alphaRegex.test(html)) {
-          // reset lastIndex to reuse regex
-          numRegex.lastIndex = 0; alphaRegex.lastIndex = 0;
+        html = html
+          .replace(numRegex, (_, n) => `<span class="numRef">(${n})</span>`)
+          .replace(alphaRegex, (_, a) => `<span class="alphaRef">(${a})</span>`);
 
-          html = html
-            .replace(numRegex, (_, n) => `<span class="numRef">(${n})</span>`)
-            .replace(alphaRegex, (_, a) => `<span class="alphaRef">(${a})</span>`);
-
-          const span = document.createElement('span');
-          span.innerHTML = html;
-          textNode.replaceWith(span);
-        }
+        const span = document.createElement('span');
+        span.innerHTML = html;
+        tn.replaceWith(span);
       });
     })();
   </script>
